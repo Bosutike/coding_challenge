@@ -1,0 +1,9 @@
+.env
+
+notes.md
+node_modules
+
+avatars/*
+tmp/*
+
+config/gcp_service_key.json

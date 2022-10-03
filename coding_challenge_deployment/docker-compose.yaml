@@ -1,0 +1,36 @@
+version: "3"
+services:
+  challenge_front:
+    image: challenge_front
+    container_name: challenge_front
+    networks:
+      - app-connect
+    ports:
+      - "8080:8080"
+  challenge_back:
+    image: challenge_back
+    container_name: challenge_back
+    networks:
+      - app-connect
+    ports:
+      - "3000:3000"
+    env_file:
+      # Don't forget to set: NODE_ENV=docker
+      - ./backend.env
+  postgresDb:
+    image: postgres
+    container_name: postgresDb
+    networks:
+      - app-connect
+    ports:
+      - "5555:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+networks:
+  app-connect:
+    driver: bridge
